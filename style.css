@@ -1,0 +1,253 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100vh;
+}
+
+#signup, #login, #addTaskForm {
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+#addTask{
+    flex-direction: column;
+    /* border: 2px solid black; */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    /* width: %; */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 18px;
+    /* margin-bottom: 8px; */
+}
+
+input {
+    width: 95%;
+    margin-top: 5px;
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+textarea{
+    height: 80px;
+}
+
+input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+button {
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #357abd;
+}
+
+
+h1 {
+    text-align: center;
+    width: 90%;
+    background-color: #007bff;
+    color: white;
+    padding: 15px 0;
+    margin-bottom: 20px;
+}
+
+/* Admin Dashboard Styles */
+#adminTask, #userTask {
+    width: 80%;
+    margin: auto;
+    /* padding: ; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#adminTask div, #userTask div {
+    width: 50%;
+    /* width: auto; */
+    border: 2px solid red;
+    padding: 20px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#adminTask h2 {
+    color: red;
+}
+
+#adminTask p, #userTask div {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #333;
+    padding: 15px 25px;
+    /* padding: 40px; */
+    color: #fff;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.navbar .logo {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-left: 1%;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin-right: 1%;
+}
+
+.navbar .nav-links li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-links li a:hover {
+    color: #ffcc00;
+}
+
+/* ------------------- */
+/* Task Form Styling */
+/* ------------------- */
+/* form #taskForm {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+form #taskForm input,
+form #taskForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+form #taskForm button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+form #taskForm button:hover {
+    background-color: #555;
+} */
+
+/* ------------------- */
+/* Task Display Styling */
+/* ------------------- */
+.task {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.task h3 {
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.task p {
+    color: #666;
+}
+
+
+
+/* User Dashboard Styles */
+/* #userTask {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#userTask div {
+    width: 90%;
+    border: 2px solid black;
+    padding: 10px;
+    margin: 10px;
+    background-color: #e9f5ff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#userTask p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+} */
+
+@media (max-width: 768px) {
+    #adminTask, #userTask {
+        width: 95%;
+    }
+}
+
+
+@media (max-width: 480px) {
+    #signupForm {
+        width: 90%;
+    }
+} 
