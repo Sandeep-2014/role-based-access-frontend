@@ -135,19 +135,19 @@ const fetchAdminTask = async () => {
         if (res.ok) {
             let data = await res.json()
             console.log(data)
-            if(data.allTask.length > 0){
-                const h1 = document.querySelector('h1')
-                h1.innerHTML = `Welcome ${data.name.toUpperCase()}`
-                data.allTask.forEach((ele) => {
-                    console.log(ele.title)
-                    console.log(ele.description)
-                    console.log(ele.createdBy)
-                    displayAdminTask(ele)
-                })
-            }else{
-                const h1 = document.querySelector('h1')
-                h1.innerHTML = "No any Task is added by any users"
-            }
+            // if(data.allTask.length > 0){
+            //     const h1 = document.querySelector('h1')
+            //     h1.innerHTML = `Welcome ${data.name.toUpperCase()}`
+            //     data.allTask.forEach((ele) => {
+            //         console.log(ele.title)
+            //         console.log(ele.description)
+            //         console.log(ele.createdBy)
+            //         displayAdminTask(ele)
+            //     })
+            // }else{
+            //     const h1 = document.querySelector('h1')
+            //     h1.innerHTML = "No any Task is added by any users"
+            // }
             // data.allTask.forEach(ele => console.log(ele.title))
         }else{
             const data = await res.json()

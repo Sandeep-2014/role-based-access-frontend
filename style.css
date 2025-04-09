@@ -154,47 +154,6 @@ h1 {
     color: #ffcc00;
 }
 
-/* ------------------- */
-/* Task Form Styling */
-/* ------------------- */
-/* form #taskForm {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-    max-width: 500px;
-}
-
-form #taskForm input,
-form #taskForm textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-form #taskForm button {
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-form #taskForm button:hover {
-    background-color: #555;
-} */
-
-/* ------------------- */
-/* Task Display Styling */
-/* ------------------- */
 .task {
     background-color: #fff;
     padding: 15px;
@@ -214,30 +173,6 @@ form #taskForm button:hover {
 }
 
 
-
-/* User Dashboard Styles */
-/* #userTask {
-    width: 80%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#userTask div {
-    width: 90%;
-    border: 2px solid black;
-    padding: 10px;
-    margin: 10px;
-    background-color: #e9f5ff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#userTask p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-} */
 
 @media (max-width: 768px) {
     #adminTask, #userTask {
