@@ -1,4 +1,4 @@
-const apiUrl = "https://role-based-authentication-api.onrender.com"
+const apiUrl = "https://role-based-access-backend-api.onrender.com"
 // const apiUrl = "http://127.0.0.1:4000"
 
 const loginForm = document.getElementById("loginForm")
