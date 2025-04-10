@@ -5,7 +5,6 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     height: 100vh;
 }
@@ -21,11 +20,9 @@ body {
 
 #addTask{
     flex-direction: column;
-    /* border: 2px solid black; */
     width: 100%;
     justify-content: center;
     align-items: center;
-    /* width: %; */
 }
 
 form {
@@ -37,7 +34,6 @@ form {
 label {
     font-weight: bold;
     font-size: 18px;
-    /* margin-bottom: 8px; */
 }
 
 input {
@@ -76,11 +72,18 @@ button:hover {
     background-color: #357abd;
 }
 
-#error{
+#error, #error1{
     color: red;
     text-align: center;
 }
 
+#success{
+    color: green;
+    text-align: center;
+}
+
+
+/* Dashboard Styles */
 
 h1 {
     text-align: center;
@@ -91,12 +94,9 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Admin Dashboard Styles */
 #adminTask, #userTask {
     width: 90%;
     margin: auto;
-    /* border: 2px solid blue; */
-    /* padding: ; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,12 +105,23 @@ h1 {
 
 #adminTask div, #userTask div {
     width: 95%;
-    /* width: auto; */
     border: 2px solid red;
     padding: 20px;
     margin: 10px;
     background-color: #fff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#adminTask div{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    
+    
+}
+
+#adminTask div div, #userTask div{
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 #adminTask div h2 {
@@ -118,16 +129,12 @@ h1 {
     text-align: center;
 }
 #adminTask div div{
+    width: 95%;
     border: 2px solid black;
 }
 
 #adminTask div div h2{
     text-align: start;
-}
-#adminTask p, #userTask div {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
 }
 
 p{
@@ -170,35 +177,141 @@ p{
     color: #ffcc00;
 }
 
-.task {
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-left: 5px solid #333;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
-}
-
-.task h3 {
-    margin-bottom: 8px;
-    color: #333;
-}
-
-.task p {
-    color: #666;
-}
 
 
 
-@media (max-width: 768px) {
-    #adminTask, #userTask {
+/* Extra Small Devices (very small phones, like 320px) */
+@media (max-width: 320px) {
+    body {
+        padding: 8px;
+    }
+
+    #signup, #login, #addTaskForm {
         width: 95%;
+        padding: 12px;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 20px;
+        padding: 8px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .navbar .logo {
+        font-size: 1.2em;
+    }
+
+    .navbar .nav-links {
+        flex-direction: column;
+        gap: 8px;
+        margin: 0;
+    }
+
+    .navbar .nav-links li a {
+        font-size: 14px;
+    }
+
+    #adminTask div div{
+        width: 82%;
+    }
+
+}
+
+/* Small Devices (phones up to 480px) */
+@media (min-width: 321px) and (max-width: 480px) {
+    #signup, #login, #addTaskForm {
+        width: 95%;
+        padding: 15px;
+    }
+
+    input, button {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 22px;
+        padding: 10px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .navbar .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+
+    #adminTask div div{
+        width: 85%;
     }
 }
 
-
-@media (max-width: 480px) {
-    #signupForm {
-        width: 90%;
+/* Medium Devices (tablets and laptops) */
+@media (min-width: 481px) and (max-width: 1024px) {
+    #signup, #login, #addTaskForm {
+        width: 80%;
     }
-} 
+
+    h1 {
+        font-size: 26px;
+    }
+
+    input, button {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 20px;
+    }
+
+    .navbar .logo {
+        font-size: 1.4em;
+    }
+}
+
+/* Large Devices (desktops and large screens) */
+@media (min-width: 1025px) {
+    #signup, #login, #addTaskForm {
+        width: 400px;
+    }
+
+    #adminTask div, #userTask div {
+        width: 80%;
+    }
+
+    .navbar {
+        padding: 20px 40px;
+    }
+
+    .navbar .logo {
+        font-size: 2em;
+    }
+
+    .navbar .nav-links li a {
+        font-size: 18px;
+    }
+}
+

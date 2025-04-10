@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Dashboard</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo">TaskManager</div>
         <ul class="nav-links">
-            <li id="dashboard"><a href="#">Dashboard</a></li>
-            <li><a id="addUserTask">Add Task</a></li>
-            <li id="logoutUser"><a href="#">Logout</a></li>
+            <li id="dashboard">Dashboard</li>
+            <li id="addUserTask">Add Task</li>
+            <li id="logoutUser">Logout</li>
         </ul>
     </nav>
+
     <h1 id="welcome"></h1>
-   <div style="display: none;" id="addTask">
-    <h1>Add New Task</h1>
-    <div id="addTaskForm">
-        <form id="taskForm">
-            <label for="taskTitle">Title: </label>
-            <input type="text" name="taskTitle" id="taskTitle" placeholder="Enter Task Title" required />
-            <label for="taskDescription"> Discription: </label>
-            <textarea name="taskDescription" id="taskDescription" placeholder="Enter Task Description" required></textarea>
-            <!-- <br /> -->
-            <button type="submit">Add Task</button>
-        </form>
+    <div style="display: none" id="addTask">
+        <h1>Add New Task</h1>
+        <p id="success" style="display: none"></p>
+        <p id="error1" style="display: none"></p>
+        <div id="addTaskForm">
+            <form id="taskForm">
+                <label for="taskTitle">Title: </label>
+                <input type="text" name="taskTitle" id="taskTitle" placeholder="Enter Task Title" required />
+                <label for="taskDescription"> Discription: </label>
+                <textarea name="taskDescription" id="taskDescription" placeholder="Enter Task Description"></textarea>
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+        <p>Go Back to Dashboard page <a id="back" href="">Back</a></p>
     </div>
-    <p> Go Back to Dashboard page <a id="back" href="">Back</a></p>
-   </div>
-    
 
     <div id="userTask"></div>
 
