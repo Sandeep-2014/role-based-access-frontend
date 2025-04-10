@@ -1,10 +1,74 @@
-const apiUrl = "https://role-based-authentication-api.onrender.com"
-// login
+// const apiUrl = "https://role-based-authentication-api.onrender.com"
+const apiUrl = "http://127.0.0.1:4000"
 
 const loginForm = document.getElementById("loginForm")
+const signupForm = document.getElementById("signupForm")
+
+
+const logoutUser = document.getElementById("logoutUser")
+const logoutAdmin = document.getElementById("logoutAdmin")
+
+const adminTask = document.getElementById("adminTask")
+const userTask = document.getElementById("userTask")
+
+const addUserTask = document.getElementById("addUserTask")
+const addTaskForm = document.getElementById("addTaskForm")
+
+const back = document.getElementById("back")
+const dashboard = document.getElementById("dashboard")
+
 if (loginForm) {
     loginForm.addEventListener('submit', loginUser)
 }
+
+
+if (signupForm) {
+    signupForm.addEventListener('submit', signupUser)
+}
+
+
+if (logoutUser) {
+    console.log(logoutUser)
+    logoutUser.addEventListener('click', logout)
+}
+
+
+if (logoutAdmin) {
+    console.log(logoutAdmin)
+    logoutAdmin.addEventListener('click', logout)
+}
+
+
+if (adminTask) {
+    console.log(adminTask)
+    fetchAdminTask()
+}
+
+
+if (userTask) {
+    fetchUserTask()
+}
+
+
+if (addUserTask) {
+    addUserTask.addEventListener('click', addUserTaskFunction)
+}
+
+
+if (addTaskForm) {
+    addTaskForm.addEventListener('submit', addTask)
+}
+
+
+if (back) {
+    back.addEventListener("click", backFunction)
+}
+
+
+if (dashboard) {
+    dashboard.addEventListener("click", dashboardFunction)
+}
+
 
 async function loginUser(e) {
     e.preventDefault()
@@ -28,54 +92,36 @@ async function loginUser(e) {
             },
             body: JSON.stringify(data)
         })
-        // console.log(res)
+        console.log(res)
 
 
         if (res.ok) {
-            const result = await res.json(); // Parse JSON response
+            const result = await res.json();
             console.log('Login successful:', result);
-            // console.log(result.accessToken)
+            // console.log(result.token)
             // const allcookies = document.cookie
-            // console.log(res.status())
+            // console.log(allcookies)
 
             if (result.role === "user") {
-                // cookies.set('accessToken', result.accessToken)
-                // window.location.href = 'adminDashboard.html';
-                // window.history.pushState({}, "", "adminDashboard.html");
-
-                
                 window.location.href = 'userDashboard.html';
-            } else {
-                window.location.assign("adminDashboard.html");
+            } else if(result.role === "admin") {
+                window.location.href =  "adminDashboard.html";
             }
-
-            // Redirect or handle success
-            // window.location.href = 'dashboard.html'; // Redirect after login
         } else {
-            // Handle error response
             const errorData = await res.json();
-            console.log(errorData.message)
+            console.log(errorData)
+            // console.log(errorData.message)
+            // console.log(res.status)
             const errorContainer = document.getElementById("error")
-            errorContainer.style.display = "flex"
-            errorContainer.style.color = "red"
+            errorContainer.style.display = "block"
             errorContainer.innerHTML = errorData.message
-            console.log(res.status)
-            // console.error('Login failed:', errorData.detail);
-            // alert('Login failed: ' + errorData.detail);
         }
 
     } catch (error) {
         console.error('Error:', error);
-        // alert('Something went wrong. Please try again.');
     }
 }
 
-
-const signupForm = document.getElementById("signupForm")
-
-if (signupForm) {
-    signupForm.addEventListener('submit', signupUser)
-}
 
 async function signupUser(e) {
     e.preventDefault()
@@ -110,7 +156,9 @@ async function signupUser(e) {
         } else {
             const err = await res.json()
             console.log(err)
-            console.log(err.message)
+            const errorEle = document.getElementById("error")
+            errorEle.style.display = "block"
+            errorEle.innerHTML = err.message
         }
 
     } catch (error) {
@@ -118,12 +166,31 @@ async function signupUser(e) {
     }
 }
 
-const adminTask = document.getElementById("adminTask")
-const userTask = document.getElementById("userTask")
+async function logout() {
+    const req = await fetch(`${apiUrl}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
 
-// console.log(userTask)
-const fetchAdminTask = async () => {
+    const res = await req.json()
+    console.log(res)
+    if (req.ok) {
+        window.location.href = "index.html"
+    }
+
+}
+
+
+async function fetchAdminTask () {
+    console.log("this is one")
+
+    console.log("apiUrl is:", apiUrl);
     try {
+        console.log("About to fetch...");
+
         const res = await fetch(`${apiUrl}/api/task/admin/dashboard`, {
             method: "GET",
             headers: {
@@ -131,10 +198,18 @@ const fetchAdminTask = async () => {
             },
             credentials: "include"
         })
-
+        console.log(res)
+        console.log("this is two")
         if (res.ok) {
             let data = await res.json()
             console.log(data)
+            if (data.allTask.length > 0) {
+                data.allTask.forEach((tasks) => {
+                    const h1 = document.querySelector('h1')
+                    h1.innerHTML = `Welcome ${data.name.toUpperCase()}`
+                    displayAdminTask(tasks)
+                })
+            }
             // if(data.allTask.length > 0){
             //     const h1 = document.querySelector('h1')
             //     h1.innerHTML = `Welcome ${data.name.toUpperCase()}`
@@ -149,9 +224,8 @@ const fetchAdminTask = async () => {
             //     h1.innerHTML = "No any Task is added by any users"
             // }
             // data.allTask.forEach(ele => console.log(ele.title))
-        }else{
+        } else {
             const data = await res.json()
-            console.log("User registered succefull")
             console.log(data)
             console.log(data.message)
             window.location.href = 'index.html'
@@ -163,8 +237,53 @@ const fetchAdminTask = async () => {
 }
 
 
-const fetchUserTask = async () => {
+function displayAdminTask(data) {
+
+
+    let newDiv = document.createElement('div')
+
+    const container = document.createElement('div')
+
+    container.style.cssText = `
+
+        border: 2px solid red;
+
+    `
+
+    let h2 = document.createElement('h2')
+
+    h2.innerHTML = `Created By :- ${data.name.toUpperCase()}`
+    newDiv.appendChild(h2)
+    if(data.userTasks.length > 0){
+        console.log(data.userTasks.length)
+        data.userTasks.forEach((task, index) => {
+            let taskDiv = document.createElement('div')
+            let h3 = document.createElement('h2')
+            let p = document.createElement('p');
+            let p1 = document.createElement('p');
+            h3.innerHTML = `Task:- ${index + 1}`
+            p.innerHTML = `Title :- ${task.title}`
+            p1.innerHTML = `Description :- ${task.description}`
+            taskDiv.appendChild(h3)
+            taskDiv.appendChild(p)
+            taskDiv.appendChild(p1)
+    
+            newDiv.appendChild(taskDiv)
+        })
+    }else{   
+        let h3 = document.createElement('h2')
+        h3.innerHTML = "No task added or created by the user"
+        newDiv.appendChild(h3)
+
+    }
+
+    adminTask.appendChild(newDiv)
+}
+
+
+async function fetchUserTask (){
     try {
+
         const res = await fetch(`${apiUrl}/api/task/user/dashboard`, {
             method: "GET",
             headers: {
@@ -177,17 +296,17 @@ const fetchUserTask = async () => {
             let data = await res.json()
             console.log(data)
             const h1 = document.querySelector('#welcome')
-            if(data.allTask.length > 0){
+            if (data.allTask.length > 0) {
 
-                
+
                 h1.innerHTML = `Welcome ${data.name.toUpperCase()} `
                 data.allTask.forEach((ele, index) => displayUserPost(ele, index))
-            }else{
+            } else {
                 // const h1 = document.querySelector('h1')
                 h1.innerHTML = "No task available"
             }
             // data.allTask.forEach(ele => console.log(ele.title))
-        }else{
+        } else {
             const data = await res.json()
             console.log(data)
             console.log(data.message)
@@ -199,15 +318,16 @@ const fetchUserTask = async () => {
 
 }
 
+
 function displayUserPost(data, index) {
-    
+
     let newDiv = document.createElement('div')
     let h2 = document.createElement('h2')
     let p = document.createElement('p');
     let p1 = document.createElement('p');
     h2.innerHTML = `Task :- ${index + 1}`
-    p.innerHTML = data.title
-    p1.innerHTML = data.description
+    p.innerHTML = `Title : - ${data.title}`
+    p1.innerHTML = `Description :- ${data.description}`
     newDiv.appendChild(h2)
     newDiv.appendChild(p)
     newDiv.appendChild(p1)
@@ -216,79 +336,35 @@ function displayUserPost(data, index) {
 }
 
 
-function displayAdminTask(data){
-    let newDiv = document.createElement('div')
-    const container = document.createElement('div')
-    container.style.cssText = `
-        border: 2px solid red;
-    `
-    let h2 = document.createElement('h2')
-    let p = document.createElement('p');
-    let p1 = document.createElement('p');
-    h2.innerHTML = `Created By :- ${data.createdBy.toUpperCase()}`
-    p.innerHTML = data.title
-    p1.innerHTML = data.description
-    newDiv.appendChild(h2)
-    newDiv.appendChild(p)
-    newDiv.appendChild(p1)
+function  backFunction () {
+    const addTaskEle = document.getElementById("addTask")
 
-    adminTask.appendChild(newDiv)
-    
+    addTaskEle.style.display = "none"
+    userTask.style.display = "flex"
 }
 
-if (adminTask) {
-    console.log(adminTask)
-    fetchAdminTask()
-}
 
-if(userTask){
-    fetchUserTask()
-}
-
-const addUserTask = document.getElementById("addUserTask")
-const addTaskForm = document.getElementById("addTaskForm")
-
-const back = document.getElementById("back")
-const dashboard = document.getElementById("dashboard")
-
-if(dashboard){
-    dashboard.addEventListener("click", () => {
-        const addTaskEle = document.getElementById("addTask")
+function dashboardFunction () {
+    const addTaskEle = document.getElementById("addTask")
         const h1 = document.querySelector('#welcome')
 
         addTaskEle.style.display = "none"
         userTask.style.display = "flex"
         h1.style.display = "block"
-    })
-}
-
-if(back){
-    back.addEventListener("click", () => {
-        const addTaskEle = document.getElementById("addTask")
-
-        addTaskEle.style.display = "none"
-        userTask.style.display = "flex"
-    })
 }
 
 
-
-if(addUserTask){
-    addUserTask.addEventListener('click', () => {
-        const addTaskEle = document.getElementById("addTask")
+function addUserTaskFunction () {
+    const addTaskEle = document.getElementById("addTask")
         const h1 = document.querySelector('#welcome')
 
         addTaskEle.style.display = "flex"
         userTask.style.display = "none"
         h1.style.display = "none"
-
-    })
-}
-if(addTaskForm){
-    addTaskForm.addEventListener('submit', addTask)
 }
 
-async function addTask(e){
+
+async function addTask(e) {
     e.preventDefault()
     const title = document.getElementById("taskTitle").value
     const description = document.getElementById("taskDescription").value
@@ -309,15 +385,15 @@ async function addTask(e){
             body: JSON.stringify(data)
         })
         console.log(res)
-    
-        if (res.ok){
+
+        if (res.ok) {
             const finalData = await res.json()
             console.log("Task Created succefull")
-            console.log(data)
-            console.log(data.message)
-            
-        }else{
-            if(res.status === 401){
+            console.log(finalData)
+            console.log(finalData.message)
+
+        } else {
+            if (res.status === 401) {
                 console.log(res.status)
                 alert("User is Unauthorized Please login Again")
                 window.location.href = "index.html"
@@ -325,40 +401,27 @@ async function addTask(e){
 
         }
     } catch (error) {
-        // const err = await res.json()
         console.log("Error while adding the task : ", error)
-
-
-
     }
 
 }
 
-const logoutUser = document.getElementById("logoutUser")
-const logoutAdmin = document.getElementById("logoutAdmin")
-if(logoutUser){
-    console.log(logoutUser)
-    logoutUser.addEventListener('click', logout)
-}
-
-if(logoutAdmin){
-    console.log(logoutAdmin)
-    logoutAdmin.addEventListener('click', logout)
-}
-
-async function logout(){
-    const req = await fetch(`${apiUrl}/api/auth/logout`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-
-    const res = await req.json()
-    console.log(res)
-    if(req.ok){
-        window.location.href = "index.html"
-    }
-
-}
+// function displayAdminTask(data) {
+// let newDiv = document.createElement('div')
+// const container = document.createElement('div')
+// container.style.cssText = `
+// border: 2px solid red;
+// `
+// let h2 = document.createElement('h2')
+// let p = document.createElement('p');
+// let p1 = document.createElement('p');
+// h2.innerHTML = `Created By :- ${data.createdBy.toUpperCase()}`
+// p.innerHTML = data.title
+// p1.innerHTML = data.description
+// newDiv.appendChild(h2)
+// newDiv.appendChild(p)
+// newDiv.appendChild(p1)
+// 
+// adminTask.appendChild(newDiv)
+// 
+// }

@@ -76,6 +76,11 @@ button:hover {
     background-color: #357abd;
 }
 
+#error{
+    color: red;
+    text-align: center;
+}
+
 
 h1 {
     text-align: center;
@@ -88,8 +93,9 @@ h1 {
 
 /* Admin Dashboard Styles */
 #adminTask, #userTask {
-    width: 80%;
+    width: 90%;
     margin: auto;
+    /* border: 2px solid blue; */
     /* padding: ; */
     display: flex;
     flex-direction: column;
@@ -98,7 +104,7 @@ h1 {
 }
 
 #adminTask div, #userTask div {
-    width: 50%;
+    width: 95%;
     /* width: auto; */
     border: 2px solid red;
     padding: 20px;
@@ -107,14 +113,25 @@ h1 {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#adminTask h2 {
+#adminTask div h2 {
     color: red;
+    text-align: center;
+}
+#adminTask div div{
+    border: 2px solid black;
 }
 
+#adminTask div div h2{
+    text-align: start;
+}
 #adminTask p, #userTask div {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
+}
+
+p{
+    font-size: 22px;
 }
 
 .navbar {
@@ -124,7 +141,6 @@ h1 {
     width: 100%;
     background-color: #333;
     padding: 15px 25px;
-    /* padding: 40px; */
     color: #fff;
     margin-bottom: 30px;
     border-radius: 5px;
