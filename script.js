@@ -61,12 +61,12 @@ if (addTaskForm) {
 
 
 if (back) {
-    back.addEventListener("click", showDashboard)
+    back.addEventListener("click", refreshCurrentPage)
 }
 
 
 if (dashboard) {
-    dashboard.addEventListener("click", showDashboard)
+    dashboard.addEventListener("click", refreshCurrentPage)
 }
 
 
@@ -183,7 +183,6 @@ async function logout() {
     }else{
         window.location.href = "index.html"
     }
-
 }
 
 
@@ -231,9 +230,20 @@ async function fetchAdminTask() {
         } else {
             const data = await res.json()
             console.log(data)
-            console.log(res.status)
-            alert(data.message)
-            window.location.href = 'index.html'
+            // console.log(res.status)
+            // console.log(data.message)
+
+            // alert message was not showing before so for that I have to refresh the current page and then it will show me this alert message
+            if(res.status === 403){
+                refreshCurrentPage()
+                alert(data.message)
+                window.location.href = "userDashboard.html"
+            }else{
+                refreshCurrentPage()
+                alert(data.message)
+                window.location.href = "index.html"
+            }
+
         }
 
     } catch (error) {
@@ -297,6 +307,7 @@ async function fetchUserTask() {
             },
             credentials: "include"
         })
+        console.log(res)
 
         if (res.ok) {
             let data = await res.json()
@@ -314,9 +325,16 @@ async function fetchUserTask() {
         } else {
             const data = await res.json()
             console.log(data)
-            console.log(res.status)
-            alert(data.message)
-            window.location.href = 'index.html'
+            // alert message was not showing before, so for that I have to refresh the current page and then it will show me this alert message
+            if(res.status === 403){
+                refreshCurrentPage()
+                alert(data.message)
+                window.location.href = "adminDashboard.html"
+            }else{
+                refreshCurrentPage()
+                alert(data.message)
+                window.location.href = "index.html"
+            }
         }
     } catch (error) {
         console.log(error)
@@ -342,8 +360,8 @@ function displayUserPost(data, index) {
 }
 
 
-function showDashboard() {
-    window.location.href = "userDashboard.html"
+function refreshCurrentPage() {
+    location.reload()
 }
 
 
