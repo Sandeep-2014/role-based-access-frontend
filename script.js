@@ -17,6 +17,20 @@ const addTaskForm = document.getElementById("addTaskForm")
 const back = document.getElementById("back")
 const dashboard = document.getElementById("dashboard")
 
+window.addEventListener('pageshow', function (event) {
+    // Reload if coming from back/forward cache
+    if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        window.location.reload();
+    }
+});
+
+
+function alerMessage(message){
+    alert(message)
+}
+
+  
+
 
 if (loginForm) {
     loginForm.addEventListener('submit', loginUser)
@@ -204,10 +218,13 @@ async function fetchAdminTask() {
         if (res.ok) {
             let data = await res.json()
             console.log(data)
+            const body = document.querySelector('body')
+            body.style.display = "flex"
             if (data.allTask.length > 0) {
+                const h1 = document.querySelector('h1')
+                h1.innerHTML = `Welcome ${data.name.toUpperCase()}`
                 data.allTask.forEach((tasks) => {
-                    const h1 = document.querySelector('h1')
-                    h1.innerHTML = `Welcome ${data.name.toUpperCase()}`
+                    
                     displayAdminTask(tasks)
                 })
             }else{
@@ -238,11 +255,13 @@ async function fetchAdminTask() {
             if(res.status === 403){
                 refreshCurrentPage()
                 alert(data.message)
-                window.location.href = "userDashboard.html"
+                // window.location.href = "userDashboard.html"
+                window.history.back()
             }else{
                 refreshCurrentPage()
                 alert(data.message)
-                window.location.href = "index.html"
+                // window.location.href = "index.html"
+                window.history.back()
             }
 
         }
@@ -314,8 +333,9 @@ async function fetchUserTask() {
             let data = await res.json()
             console.log(data)
             const h1 = document.querySelector('#welcome')
+            const body = document.querySelector('body')
+            body.style.display = "flex"
             if (data.allTask.length > 0) {
-
 
                 h1.innerHTML = `Welcome ${data.name.toUpperCase()} `
                 data.allTask.forEach((ele, index) => displayUserPost(ele, index))
@@ -330,11 +350,13 @@ async function fetchUserTask() {
             if(res.status === 403){
                 refreshCurrentPage()
                 alert(data.message)
-                window.location.href = "adminDashboard.html"
+                // window.location.href = "adminDashboard.html"
+                window.history.back()
             }else{
                 refreshCurrentPage()
                 alert(data.message)
-                window.location.href = "index.html"
+                // window.location.href = "index.html"
+                window.history.back()
             }
         }
     } catch (error) {
