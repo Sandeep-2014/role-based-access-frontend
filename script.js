@@ -25,11 +25,11 @@ window.addEventListener('pageshow', function (event) {
 });
 
 
-function alerMessage(message){
+function alerMessage(message) {
     alert(message)
 }
 
-  
+
 
 
 if (loginForm) {
@@ -91,7 +91,6 @@ async function loginUser(e) {
     const password = document.getElementById("password").value
     // console.log(email)
     // console.log(password)
-
     const data = {
         email: email,
         password: password
@@ -195,7 +194,7 @@ async function logout() {
         const data = await res.json()
         alert(data.message)
         window.location.href = "index.html"
-    }else{
+    } else {
         window.location.href = "index.html"
     }
 }
@@ -224,10 +223,10 @@ async function fetchAdminTask() {
                 const h1 = document.querySelector('h1')
                 h1.innerHTML = `Welcome ${data.name.toUpperCase()}`
                 data.allTask.forEach((tasks) => {
-                    
+
                     displayAdminTask(tasks)
                 })
-            }else{
+            } else {
                 const h1 = document.querySelector('h1')
                 h1.innerHTML = "No any Task is added by any users"
             }
@@ -252,12 +251,12 @@ async function fetchAdminTask() {
             // console.log(data.message)
 
             // alert message was not showing before so for that I have to refresh the current page and then it will show me this alert message
-            if(res.status === 403){
+            if (res.status === 403) {
                 refreshCurrentPage()
                 alert(data.message)
                 // window.location.href = "userDashboard.html"
                 window.history.back()
-            }else{
+            } else {
                 refreshCurrentPage()
                 alert(data.message)
                 // window.location.href = "index.html"
@@ -275,45 +274,38 @@ async function fetchAdminTask() {
 
 function displayAdminTask(data) {
 
-
     let newDiv = document.createElement('div')
 
-    const container = document.createElement('div')
+    if (data.role !== "admin") {
+        let h2 = document.createElement('h2')
 
-    container.style.cssText = `
+        h2.innerHTML = `Created By :- ${data.name.toUpperCase()}`
+        newDiv.appendChild(h2)
+        if (data.userTasks.length > 0) {
+            console.log(data.userTasks.length)
+            data.userTasks.forEach((task, index) => {
+                let taskDiv = document.createElement('div')
+                let h3 = document.createElement('h2')
+                let p = document.createElement('p');
+                let p1 = document.createElement('p');
+                h3.innerHTML = `Task:- ${index + 1}`
+                p.innerHTML = `Title :- ${task.title}`
+                p1.innerHTML = `Description :- ${task.description}`
+                taskDiv.appendChild(h3)
+                taskDiv.appendChild(p)
+                taskDiv.appendChild(p1)
 
-        border: 2px solid red;
-
-    `
-
-    let h2 = document.createElement('h2')
-
-    h2.innerHTML = `Created By :- ${data.name.toUpperCase()}`
-    newDiv.appendChild(h2)
-    if (data.userTasks.length > 0) {
-        console.log(data.userTasks.length)
-        data.userTasks.forEach((task, index) => {
-            let taskDiv = document.createElement('div')
+                newDiv.appendChild(taskDiv)
+            })
+        } else {
             let h3 = document.createElement('h2')
-            let p = document.createElement('p');
-            let p1 = document.createElement('p');
-            h3.innerHTML = `Task:- ${index + 1}`
-            p.innerHTML = `Title :- ${task.title}`
-            p1.innerHTML = `Description :- ${task.description}`
-            taskDiv.appendChild(h3)
-            taskDiv.appendChild(p)
-            taskDiv.appendChild(p1)
+            h3.innerHTML = "No task added or created by the user"
+            newDiv.appendChild(h3)
 
-            newDiv.appendChild(taskDiv)
-        })
-    } else {
-        let h3 = document.createElement('h2')
-        h3.innerHTML = "No task added or created by the user"
-        newDiv.appendChild(h3)
+        }
 
+        adminTask.appendChild(newDiv)
     }
-
-    adminTask.appendChild(newDiv)
 }
 
 
@@ -347,12 +339,12 @@ async function fetchUserTask() {
             const data = await res.json()
             console.log(data)
             // alert message was not showing before, so for that I have to refresh the current page and then it will show me this alert message
-            if(res.status === 403){
+            if (res.status === 403) {
                 refreshCurrentPage()
                 alert(data.message)
                 // window.location.href = "adminDashboard.html"
                 window.history.back()
-            }else{
+            } else {
                 refreshCurrentPage()
                 alert(data.message)
                 // window.location.href = "index.html"
@@ -434,7 +426,7 @@ async function addTask(e) {
             const err = await res.json()
             alert(err.message)
             window.location.href = "index.html"
-        }else{
+        } else {
             const err = await res.json()
             const errEle = document.getElementById("error1")
             errEle.innerHTML = err.message
