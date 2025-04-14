@@ -25,13 +25,6 @@ window.addEventListener('pageshow', function (event) {
 });
 
 
-function alerMessage(message) {
-    alert(message)
-}
-
-
-
-
 if (loginForm) {
     loginForm.addEventListener('submit', loginUser)
 }
