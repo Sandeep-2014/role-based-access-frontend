@@ -11,7 +11,7 @@ const logoutAdmin = document.getElementById("logoutAdmin")
 const adminTask = document.getElementById("adminTask")
 const userTask = document.getElementById("userTask")
 
-const addUserTask = document.getElementById("addUserTask")
+const showAddUserTaskPage = document.getElementById("addUserTask")
 const addTaskForm = document.getElementById("addTaskForm")
 
 const back = document.getElementById("back")
@@ -58,8 +58,8 @@ if (userTask) {
 }
 
 
-if (addUserTask) {
-    addUserTask.addEventListener('click', addUserTaskFunction)
+if (showAddUserTaskPage) {
+    showAddUserTaskPage.addEventListener('click', dispalyAddUserTaskForm)
 }
 
 
@@ -373,7 +373,7 @@ function refreshCurrentPage() {
 }
 
 
-function addUserTaskFunction() {
+function dispalyAddUserTaskForm() {
     const addTaskEle = document.getElementById("addTask")
     const h1 = document.querySelector('#welcome')
 
