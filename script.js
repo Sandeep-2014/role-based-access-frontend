@@ -159,6 +159,7 @@ async function signupUser(e) {
             console.log("User registered succefull")
             console.log(data)
             console.log(data.message)
+            alert(data.message)
             window.location.href = 'index.html'
         } else {
             const err = await res.json()
